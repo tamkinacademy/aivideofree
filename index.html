@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AI Video Free BD</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<style>
+:root{--bg:#07070b;--c:#12121a;--tx:#f4f0e6;--mut:#9a95a8;--ac:#f0c45c;--ac2:#c58a22;--ln:rgba(240,196,92,.22)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--tx);font-family:'Hind Siliguri',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}img,video{max-width:100%;display:block}input{font:inherit;color:inherit;font-size:16px}
+.w{max-width:1200px;margin:0 auto;padding:0 14px}
+.hd{position:sticky;top:0;z-index:20;background:rgba(7,7,11,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--ln)}
+.hd .w{display:flex;align-items:center;gap:10px;height:60px}
+.brand{font-weight:800;letter-spacing:2px;color:var(--ac);white-space:nowrap}
+.srch{margin-left:auto;flex:1;max-width:340px;display:flex;align-items:center;background:var(--c);border:1px solid var(--ln);border-radius:99px;padding:0 14px}
+.srch input{background:none;border:0;outline:0;padding:9px 8px;width:100%}
+.hero{margin:16px 0;border-radius:22px;padding:26px 20px;border:1px solid var(--ln);background:linear-gradient(120deg,rgba(240,196,92,.14),rgba(139,92,246,.1))}
+.hero h1{font-size:1.6rem;line-height:1.3;margin-bottom:6px;color:var(--ac)}.hero p{color:var(--mut)}
+.ann{margin-top:10px;display:inline-block;padding:4px 14px;border-radius:99px;background:rgba(0,0,0,.35);border:1px solid var(--ln);font-size:.85rem;color:var(--ac)}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:700px){.grid{grid-template-columns:repeat(3,1fr)}}@media(min-width:1000px){.grid{grid-template-columns:repeat(5,1fr)}}
+.vc{display:block;cursor:pointer}
+.th{position:relative;border-radius:16px;overflow:hidden;background:#1a1a24;border:1px solid var(--ln);aspect-ratio:16/9}
+.vc.pt .th{aspect-ratio:9/14}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.th .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.4rem;opacity:.4}
+.bd{position:absolute;top:8px;left:8px;font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:99px;background:rgba(22,163,74,.92)}
+.vn{position:absolute;top:8px;right:8px;font-size:.68rem;padding:2px 8px;border-radius:7px;background:rgba(0,0,0,.65)}
+.cap{position:absolute;left:0;right:0;bottom:0;padding:30px 10px 8px;background:linear-gradient(transparent,rgba(0,0,0,.92))}
+.cap h3{font-size:.88rem;font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.empty{grid-column:1/-1;text-align:center;color:var(--mut);padding:50px 0}
+.mut{color:var(--mut)}.sm{font-size:.82rem}
+.ad{margin:12px 0;text-align:center;overflow:hidden}.ad small{display:block;font-size:.66rem;color:var(--mut)}
+.ft{border-top:1px solid var(--ln);margin-top:36px;padding:24px 0 40px;text-align:center;color:var(--mut);font-size:.88rem}
+.so{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:10px}.so a{padding:7px 16px;border-radius:99px;background:var(--c);border:1px solid var(--ln);color:var(--tx)}
+.btn{display:inline-block;border:0;cursor:pointer;padding:14px 28px;border-radius:99px;font-weight:700;font-size:1rem;color:#1b1406;background:linear-gradient(135deg,#fbe9a8,var(--ac),var(--ac2));box-shadow:0 8px 22px rgba(197,138,34,.35)}
+.btn.gh{background:var(--c);color:var(--tx);border:1px solid var(--ln);box-shadow:none;padding:8px 16px;font-size:.9rem}
+.pg{position:fixed;inset:0;z-index:50;background:var(--bg);overflow-y:auto}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:10px;padding:10px 14px;background:rgba(7,7,11,.9);border-bottom:1px solid var(--ln)}
+.top b{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pw{max-width:900px;margin:0 auto;padding:16px 14px 60px}
+.stage{position:relative;margin:0 auto;aspect-ratio:16/9;background:#000;border:1px solid var(--ln);border-radius:18px;overflow:hidden}
+.stage.pt{aspect-ratio:9/16;max-width:min(380px,calc((100svh - 150px) * .5625))}
+.stage iframe,.stage video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ptitle{font-size:1.3rem;margin:14px 0 4px}
+.dl{margin:16px 0;padding:18px;border-radius:18px;border:1px dashed var(--ln);background:rgba(240,196,92,.06);text-align:center}
+.cnt{font-size:2.2rem;font-weight:800;color:var(--ac)}
+.bd.p{background:linear-gradient(135deg,#fbe9a8,#c58a22);color:#1b1406}
+.ib{border:1px solid var(--ln);background:var(--c);color:var(--tx);cursor:pointer;padding:8px 14px;border-radius:99px;font-size:.88rem;white-space:nowrap}.ib b{color:var(--ac)}
+.mo{position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.78);display:flex;padding:14px;overflow-y:auto}
+.box{position:relative;margin:auto;width:100%;max-width:440px;background:var(--c);border:1px solid var(--ln);border-radius:20px;padding:22px}
+.box h3{color:var(--ac);margin-bottom:8px;padding-right:36px}
+.x{position:absolute;right:12px;top:12px;width:34px;height:34px;border-radius:50%;border:0;background:rgba(255,255,255,.08);color:inherit;cursor:pointer}
+.box label{display:block;margin-top:10px;font-size:.82rem;color:var(--mut)}
+.box input,.box select{width:100%;margin-top:4px;padding:11px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(0,0,0,.35);outline:0;color:inherit}
+.box .btn{width:100%;margin-top:14px}
+.tabs{display:flex;gap:6px;margin:10px 0}.tabs button{flex:1;border:0;padding:8px;border-radius:99px;background:rgba(0,0,0,.3);color:var(--mut);cursor:pointer}.tabs button.on{background:var(--ac);color:#1b1406;font-weight:700}
+.bal{padding:14px;border-radius:14px;border:1px solid var(--ln);text-align:center;margin:8px 0}.bal b{display:block;font-size:1.8rem;color:var(--ac)}
+.num{display:flex;align-items:center;gap:8px;margin-top:8px;padding:10px;border-radius:12px;border:1px dashed var(--ln)}.num span{flex:1;font-weight:700}.num button{border:0;background:var(--ac);border-radius:8px;padding:5px 12px;font-weight:700;cursor:pointer}
+.li{padding:9px 12px;border-radius:12px;background:rgba(0,0,0,.28);margin-top:8px;font-size:.9rem}.li .t{display:flex;justify-content:space-between;gap:8px}
+.st{font-size:.72rem;padding:2px 9px;border-radius:99px;font-weight:700;background:#f59e0b;color:#1b1406}.st.approved,.st.bought{background:#22c55e;color:#fff}.st.rejected{background:#ef4444;color:#fff}
+.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:300;background:#14141c;color:var(--ac);border:1px solid var(--ln);padding:10px 20px;border-radius:99px}
+.lock{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;text-align:center;padding:16px;background:rgba(6,6,10,.8)}
+.lock .btn{padding:10px 22px}
+</style></head><body>
+<header class="hd"><div class="w"><a class="brand" href="#" id="brand">▶ AI VIDEO BD</a><label class="srch">🔍<input id="q" type="search" placeholder="ভিডিও খুঁজুন..."></label><button class="ib" id="bw" style="display:none" type="button">💰 <b id="bal">৳০</b></button><button class="ib" id="bl" type="button">লগইন</button></div></header>
+<main class="w">
+<section class="hero"><h1 id="hT">AI ভিডিও ফ্রি ডাউনলোড করুন</h1><p id="hP">আপনার চ্যানেল বা পেজের জন্য রেডি AI ভিডিও নিন। ডাউনলোডের আগে একটি বিজ্ঞাপন দেখতে হবে।</p><div class="ann" id="ann" style="display:none"></div></section>
+<div id="adtop"></div>
+<div class="grid" id="grid"><div class="empty">লোড হচ্ছে...</div></div>
+<div id="adbot"></div>
+</main>
+<footer class="ft"><div class="w"><div class="so" id="so"></div><div id="fc"></div></div></footer>
+<div id="root"></div>
+<script>
+const FB={apiKey:"AIzaSyDsgd2a9Tl75aiWdjdeznidCkS4JuO22NY",authDomain:"aivideofreebd.firebaseapp.com",projectId:"aivideofreebd",storageBucket:"aivideofreebd.firebasestorage.app",messagingSenderId:"1064536851209",appId:"1:1064536851209:web:cdf314feb1894db9ce49d8"};
+firebase.initializeApp(FB);
+const auth=firebase.auth(),db=firebase.firestore(),FV=firebase.firestore.FieldValue;
+const $=(s,r)=>(r||document).querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const bn=n=>String(n).replace(/\d/g,d=>'০১২৩৪৫৬৭৮৯'[d]);
+let S={},VL=[],M={},U=null,P=null,unsub=null;
+const money=n=>'৳'+bn(Math.round((+n||0)*100)/100);
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+function modal(h){const m=document.createElement('div');m.className='mo';m.innerHTML='<div class="box"><button class="x" type="button">✕</button>'+h+'</div>';m.onclick=e=>{if(e.target===m||e.target.closest('.x'))m.remove()};$('#root').appendChild(m);return m}
+function authModal(){let mode='in';
+const m=modal('<h3>🔐 অ্যাকাউন্ট</h3><div class="tabs"><button class="on" data-m="in" type="button">লগইন</button><button data-m="up" type="button">নতুন অ্যাকাউন্ট</button></div><div id="anm" style="display:none"><label>নাম<input id="an"></label></div><label>ইমেইল<input id="ae" type="email"></label><label>পাসওয়ার্ড<input id="ap" type="password"></label><button class="btn" id="ago" type="button">লগইন করুন</button><button class="btn gh" id="agg" type="button">🌐 Google দিয়ে চালিয়ে যান</button>');
+m.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{mode=b.dataset.m;m.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$('#anm',m).style.display=mode==='up'?'':'none';$('#ago',m).textContent=mode==='up'?'অ্যাকাউন্ট খুলুন':'লগইন করুন'});
+$('#ago',m).onclick=()=>{const e=$('#ae',m).value.trim(),p=$('#ap',m).value;if(!e||!p)return toast('ইমেইল ও পাসওয়ার্ড দিন');
+(mode==='up'?auth.createUserWithEmailAndPassword(e,p).then(c=>c.user.updateProfile({displayName:$('#an',m).value.trim()})):auth.signInWithEmailAndPassword(e,p)).then(()=>m.remove()).catch(er=>toast(/password|credential|user-not/.test(er.code)?'ইমেইল বা পাসওয়ার্ড ভুল':er.code==='auth/email-already-in-use'?'এই ইমেইল আগে থেকেই আছে':'সমস্যা: '+er.code))};
+$('#agg',m).onclick=()=>auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>m.remove()).catch(er=>toast('সমস্যা: '+er.code))}
+$('#bl').onclick=authModal;
+auth.onAuthStateChanged(u=>{U=u;P=null;if(unsub){unsub();unsub=null}
+$('#bl').style.display=u?'none':'';$('#bw').style.display=u?'':'none';
+if(u){const r=db.doc('users/'+u.uid);
+r.get().then(s=>{if(!s.exists)return r.set({email:u.email||'',name:u.displayName||'',balance:0,createdAt:FV.serverTimestamp()})}).catch(()=>{}).then(()=>{unsub=r.onSnapshot(s=>{P=s.exists?s.data():{balance:0};$('#bal').textContent=money(P.balance)},()=>{})})}
+else $('#bal').textContent=money(0);
+if($('#pgv')){cur='';route()}});
+function walletModal(tab){if(!U)return authModal();
+const Q=S.payment||{},minD=+Q.minDeposit||10;
+const m=modal('<h3>💰 আমার ওয়ালেট</h3><div class="bal"><span class="mut sm">বর্তমান ব্যালেন্স</span><b id="wb">'+money(P&&P.balance)+'</b></div><div class="tabs"><button data-t="dep" type="button">ডিপোজিট</button><button data-t="his" type="button">হিস্ট্রি</button></div><div id="wbody"></div><button class="btn gh" id="wout" type="button">লগআউট</button>');
+const live=setInterval(()=>{if(!m.isConnected){clearInterval(live);return}const e=$('#wb',m);if(e)e.textContent=money(P&&P.balance)},800);
+function show(t){m.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));const w=$('#wbody',m);
+if(t==='dep'){w.innerHTML='<p class="mut sm">নিচের নম্বরে Send Money করে Transaction ID দিন। যাচাই হলে ব্যালেন্সে টাকা যোগ হবে।</p>'+(Q.bkash?`<div class="num"><b>bKash</b><span>${esc(Q.bkash)}</span><button data-c="${esc(Q.bkash)}" type="button">কপি</button></div>`:'')+(Q.nagad?`<div class="num"><b>Nagad</b><span>${esc(Q.nagad)}</span><button data-c="${esc(Q.nagad)}" type="button">কপি</button></div>`:'')+`<label>মাধ্যম<select id="dm"><option>bKash</option><option>Nagad</option></select></label><label>টাকার পরিমাণ (ন্যূনতম ${money(minD)})<input id="da" type="number" inputmode="decimal"></label><label>Transaction ID<input id="dt" autocomplete="off"></label><button class="btn" id="dgo" type="button">ডিপোজিট রিকোয়েস্ট পাঠান</button>`;
+$('#dgo',m).onclick=()=>{const a=parseFloat($('#da',m).value),t=$('#dt',m).value.trim();if(!(a>=minD))return toast('ন্যূনতম '+money(minD));if(!t)return toast('Transaction ID দিন');
+db.collection('deposits').add({uid:U.uid,email:U.email||'',method:$('#dm',m).value,trx:t,amount:a,status:'pending',at:FV.serverTimestamp()}).then(()=>{toast('রিকোয়েস্ট গেছে ✓');show('his')}).catch(()=>toast('পাঠানো যায়নি'))}}
+else{w.innerHTML='<p class="mut">লোড হচ্ছে...</p>';
+Promise.all([db.collection('deposits').where('uid','==',U.uid).get(),db.collection('purchases').where('uid','==',U.uid).get()]).then(r=>{const rows=[];
+r[0].forEach(d=>{const x=d.data();rows.push({at:x.at,h:'⬇️ ডিপোজিট '+money(x.amount),st:x.status})});
+r[1].forEach(d=>{const x=d.data();rows.push({at:x.at,h:'🎬 '+esc(x.title||'ভিডিও')+' — '+money(x.price),st:'bought'})});
+rows.sort((a,b)=>((b.at||{}).seconds||0)-((a.at||{}).seconds||0));
+const L={pending:'অপেক্ষমাণ',approved:'সফল',rejected:'বাতিল',bought:'কেনা'};
+w.innerHTML=rows.map(x=>`<div class="li"><div class="t"><span>${x.h}</span><span class="st ${x.st}">${L[x.st]}</span></div></div>`).join('')||'<p class="mut">কোনো লেনদেন নেই</p>'}).catch(()=>{w.innerHTML='<p class="mut">হিস্ট্রি লোড হয়নি</p>'})}}
+m.addEventListener('click',e=>{const t=e.target.closest('.tabs button');if(t)show(t.dataset.t);const c=e.target.closest('[data-c]');if(c){if(navigator.clipboard)navigator.clipboard.writeText(c.dataset.c);toast('কপি হয়েছে ✓')}});
+$('#wout',m).onclick=()=>{auth.signOut();m.remove()};show(tab||'dep')}
+$('#bw').onclick=()=>walletModal('dep');
+
+function pv(u){u=String(u||'').trim();let m;
+if(/drive\.google\.com/.test(u)&&((m=u.match(/\/d\/([\w-]+)/))||(m=u.match(/[?&]id=([\w-]+)/))))return{p:'drive',e:'https://drive.google.com/file/d/'+m[1]+'/preview',t:'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w640',d:'https://drive.google.com/uc?export=download&id='+m[1]};
+if(/facebook\.com|fb\.watch|fb\.com/.test(u))return{p:'fb',e:'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u)+'&show_text=false',t:'',d:u};
+if(/\.(mp4|webm|mov)(\?|#|$)/i.test(u))return{p:'direct',e:u,t:'',d:u};
+return{p:'other',e:u,t:'',d:u}}
+
+function adEl(pos){const a=S.ads||{};if(!a.enabled||!a[pos])return null;
+const d=document.createElement('div');d.className='ad';d.innerHTML='<small>বিজ্ঞাপন</small><div class="in"></div>';
+const i=$('.in',d);i.innerHTML=a[pos];
+[...i.querySelectorAll('script')].forEach(o=>{const n=document.createElement('script');[...o.attributes].forEach(t=>n.setAttribute(t.name,t.value));n.text=o.text;o.replaceWith(n)});return d}
+function putAd(sel,pos){const h=$(sel);if(!h)return;h.innerHTML='';const e=adEl(pos);if(e)h.appendChild(e)}
+
+function applySettings(){
+if(S.siteName){document.title=S.siteName;$('#brand').textContent='▶ '+S.siteName}
+if(S.heroTitle)$('#hT').textContent=S.heroTitle;
+if(S.heroText)$('#hP').textContent=S.heroText;
+if(S.announce){const a=$('#ann');a.textContent='📢 '+S.announce;a.style.display=''}
+$('#so').innerHTML=[['Facebook',S.facebook],['Telegram',S.telegram],['WhatsApp',S.whatsapp?'https://wa.me/'+String(S.whatsapp).replace(/\D/g,''):'']].filter(x=>x[1]).map(x=>`<a href="${esc(x[1])}" target="_blank" rel="noopener">${x[0]}</a>`).join('');
+$('#fc').textContent='© '+new Date().getFullYear()+' '+(S.siteName||'AI Video Free BD');
+putAd('#adtop','top');putAd('#adbot','bottom')}
+
+function render(){
+const q=($('#q').value||'').trim().toLowerCase(),g=$('#grid');
+const l=VL.filter(v=>!q||String(v.title).toLowerCase().includes(q));
+if(!l.length){g.innerHTML='<div class="empty">😕 কোনো ভিডিও পাওয়া যায়নি</div>';return}
+g.innerHTML=l.map(v=>{const t=v.thumb||v.thumbAuto;
+return `<a class="vc${v.ratio==='9/16'?' pt':''}" href="#v=${esc(v.id)}"><div class="th"><div class="ph">🎬</div>${t?`<img loading="lazy" referrerpolicy="no-referrer" src="${esc(t)}" alt="" onerror="this.style.display='none'">`:''}${v.paid?`<span class="bd p">🔒 ${money(v.price)}</span>`:'<span class="bd">⬇ ফ্রি</span>'}${v.downloads?`<span class="vn">⬇ ${bn(v.downloads)}</span>`:''}<div class="cap"><h3>${esc(v.title)}</h3></div></div></a>`}).join('')}
+$('#q').oninput=render;
+
+async function load(){
+try{const s=await db.doc('settings/site').get();S=s.exists?s.data():{}}catch(e){S={}}
+applySettings();
+try{const q=await db.collection('videos').orderBy('createdAt','desc').limit(200).get();
+VL=[];M={};q.forEach(d=>{const v=d.data();v.id=d.id;if(!v.hidden){VL.push(v);M[v.id]=v}});render();route()}
+catch(e){$('#grid').innerHTML='<div class="empty">ভিডিও লোড করা যায়নি</div>'}}
+
+let cur='';
+function route(){const m=location.hash.match(/^#v=([\w-]+)/),o=$('#pgv');
+if(!m){if(o)o.remove();cur='';document.body.style.overflow='';return}
+if(cur===m[1]&&o)return;cur=m[1];if(o)o.remove();
+const v=M[m[1]];if(!v)return;openVideo(v)}
+addEventListener('hashchange',route);
+
+function showMedia(url){const i=pv(url);$('#stg').innerHTML=i.p==='direct'?`<video src="${esc(i.e)}" controls playsinline></video>`:`<iframe src="${esc(i.e)}" allow="autoplay; fullscreen" allowfullscreen></iframe>`}
+function openVideo(v){
+document.body.style.overflow='hidden';
+const pg=document.createElement('div');pg.className='pg';pg.id='pgv';
+pg.innerHTML=`<div class="top"><button class="btn gh" id="bk" type="button">← ফিরুন</button><b>${esc(v.title)}</b></div><div class="pw"><div class="stage${v.ratio==='9/16'?' pt':''}" id="stg"></div><h1 class="ptitle">${esc(v.title)}</h1>${v.desc?`<p class="mut" style="white-space:pre-line">${esc(v.desc)}</p>`:''}<div class="dl" id="dl"></div><div id="adp"></div></div>`;
+$('#root').appendChild(pg);
+$('#bk').onclick=()=>{location.hash=''};
+putAd('#adp','player');
+db.doc('videos/'+v.id).update({views:FV.increment(1)}).catch(()=>{});
+if(v.paid)return paidFlow(v);
+showMedia(v.url);dlStart(v,pv(v.url))}
+
+function paidFlow(v){
+const stg=$('#stg'),box=$('#dl'),bg=v.thumb||v.thumbAuto;
+function lockV(){
+stg.innerHTML=(bg?`<img referrerpolicy="no-referrer" src="${esc(bg)}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(6px) brightness(.5)">`:'')+`<div class="lock"><div style="font-size:2.4rem">🔒</div><b style="color:var(--ac)">পেইড ভিডিও</b><div class="cnt">${money(v.price)}</div>`+(U?`<p class="mut sm">আপনার ব্যালেন্স: ${money(P&&P.balance)}</p><button class="btn" id="buy" type="button">🔓 ${money(v.price)} দিয়ে আনলক করুন</button><button class="btn gh" id="addm" type="button">💰 ব্যালেন্স যোগ করুন</button>`:'<p class="mut sm">আনলক করতে লগইন করুন</p><button class="btn" id="lg" type="button">লগইন / অ্যাকাউন্ট</button>')+'</div>';
+box.innerHTML='';
+const b=$('#buy',stg),l=$('#lg',stg),a=$('#addm',stg);
+if(l)l.onclick=authModal;if(a)a.onclick=()=>walletModal('dep');
+if(b)b.onclick=()=>{
+if(((P&&P.balance)||0)<v.price){toast('ব্যালেন্স কম, আগে ডিপোজিট করুন');return walletModal('dep')}
+if(!confirm(money(v.price)+' কেটে ভিডিও আনলক করবেন?'))return;
+b.disabled=true;const bt=db.batch();
+bt.update(db.doc('users/'+U.uid),{balance:FV.increment(-v.price)});
+bt.set(db.doc('purchases/'+U.uid+'_'+v.id),{uid:U.uid,vid:v.id,title:v.title,price:v.price,at:FV.serverTimestamp()});
+bt.commit().then(()=>{toast('আনলক হয়েছে ✓ 🎉');unlock()}).catch(()=>{b.disabled=false;toast('কেনা যায়নি, আবার চেষ্টা করুন')})}}
+function unlock(){
+db.doc('videos/'+v.id+'/private/src').get().then(s=>{const u=s.exists?s.data().url:'';
+if(!u){stg.innerHTML='<div class="lock">⚠️ ভিডিও লিংক পাওয়া যায়নি</div>';return}
+showMedia(u);const i=pv(u);
+box.innerHTML=`<p class="mut sm" style="margin-bottom:8px">আপনি এই ভিডিও কিনেছেন, বিজ্ঞাপন ছাড়াই ডাউনলোড করুন</p><a class="btn" id="dfin" href="${esc(i.d)}" target="_blank" rel="noopener">⬇️ ডাউনলোড করুন</a>`;
+$('#dfin').onclick=()=>{db.doc('videos/'+v.id).update({downloads:FV.increment(1)}).catch(()=>{})}}).catch(lockV)}
+if(!U)return lockV();
+db.doc('purchases/'+U.uid+'_'+v.id).get().then(s=>s.exists?unlock():lockV()).catch(lockV)}
+
+function dlStart(v,i){
+const box=$('#dl');
+box.innerHTML='<button class="btn" id="dgo" type="button">⬇️ ডাউনলোড করুন</button><p class="mut sm" style="margin-top:8px">ডাউনলোডের আগে একটি বিজ্ঞাপন দেখতে হবে</p>';
+$('#dgo').onclick=()=>{
+if(S.adLink){try{window.open(S.adLink,'_blank','noopener')}catch(e){}}
+let n=+S.seconds||8;
+box.innerHTML='<div class="cnt" id="cd">'+bn(n)+'</div><p class="mut">বিজ্ঞাপন দেখুন, ডাউনলোড লিংক আসছে...</p>';
+const iv=setInterval(()=>{
+if(!box.isConnected){clearInterval(iv);return}
+n--;if(n>0){$('#cd').textContent=bn(n);return}
+clearInterval(iv);
+box.innerHTML=`<a class="btn" id="dfin" href="${esc(i.d)}" target="_blank" rel="noopener">✅ ডাউনলোড শুরু করুন</a>`;
+$('#dfin').onclick=()=>{db.doc('videos/'+v.id).update({downloads:FV.increment(1)}).catch(()=>{})}},1000)}}
+load();
+</script></body></html>
